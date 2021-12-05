@@ -12,6 +12,7 @@ public class CadFunc {
     String usuario;
     String email;
     String senha;
+    String cargo;
 
     public int getMatricula() {
         return matricula;
@@ -53,6 +54,12 @@ public class CadFunc {
         this.senha = senha;
     }
     
-    
+    public String getCargo() {
+        return cargo;
+    }
+
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
+    }
     
 }

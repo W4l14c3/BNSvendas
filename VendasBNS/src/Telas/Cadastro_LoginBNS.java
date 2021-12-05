@@ -13,6 +13,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 import javax.swing.JOptionPane;
 import persistencia.CadFunc;
 import persistencia.DAOFunc;
@@ -39,11 +41,21 @@ public class Cadastro_LoginBNS extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         txtUsuarioLogin = new javax.swing.JTextField();
         btnEntrar = new javax.swing.JButton();
         pwdSenha1 = new javax.swing.JPasswordField();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        pwdSenha2 = new javax.swing.JPasswordField();
         jPanel2 = new javax.swing.JPanel();
         btnCadastrar = new javax.swing.JButton();
         txtEmail = new javax.swing.JTextField();
@@ -51,12 +63,28 @@ public class Cadastro_LoginBNS extends javax.swing.JFrame {
         txtNomeFull = new javax.swing.JTextField();
         pwdSenha = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
+        Cargo_Funcionario = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+
+        jMenu1.setText("jMenu1");
+
+        jMenu2.setText("jMenu2");
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/imagens/assets/fundo.jpg"))); // NOI18N
+        jLabel4.setText("jLabel4");
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/imagens/assets/fundo-tec.png"))); // NOI18N
+        jLabel3.setText("jLabel3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
 
-        jTabbedPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jTabbedPane1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel1.setLayout(null);
@@ -72,41 +100,97 @@ public class Cadastro_LoginBNS extends javax.swing.JFrame {
             }
         });
         jPanel1.add(txtUsuarioLogin);
-        txtUsuarioLogin.setBounds(230, 150, 250, 40);
+        txtUsuarioLogin.setBounds(230, 170, 250, 40);
         txtUsuarioLogin.setText("Usuario:");
         txtUsuarioLogin.setFont(new Font("Century Ghotic", Font.ITALIC, 24));
 
+        btnEntrar.setBackground(new java.awt.Color(255, 255, 255));
         btnEntrar.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         btnEntrar.setText("Entrar");
+        btnEntrar.setBorder(null);
+        btnEntrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEntrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEntrarActionPerformed(evt);
             }
         });
         jPanel1.add(btnEntrar);
-        btnEntrar.setBounds(230, 310, 250, 30);
+        btnEntrar.setBounds(230, 320, 250, 40);
 
         pwdSenha1.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         pwdSenha1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        pwdSenha1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pwdSenha1ActionPerformed(evt);
+            }
+        });
+        pwdSenha1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                pwdSenha1KeyPressed(evt);
+            }
+        });
         jPanel1.add(pwdSenha1);
-        pwdSenha1.setBounds(230, 220, 250, 40);
+        pwdSenha1.setBounds(230, 240, 250, 40);
 
-        jTabbedPane1.addTab("tab1", jPanel1);
+        jLabel6.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 1, 48)); // NOI18N
+        jLabel6.setForeground(java.awt.Color.darkGray);
+        jLabel6.setText("Login");
+        jPanel1.add(jLabel6);
+        jLabel6.setBounds(300, 90, 140, 50);
+
+        jLabel7.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        jLabel7.setText("Usuário");
+        jPanel1.add(jLabel7);
+        jLabel7.setBounds(230, 150, 90, 19);
+
+        jLabel8.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        jLabel8.setText("Senha:");
+        jPanel1.add(jLabel8);
+        jLabel8.setBounds(230, 220, 90, 19);
+
+        jLabel9.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        jLabel9.setText("Senha:");
+        jPanel1.add(jLabel9);
+        jLabel9.setBounds(230, 220, 90, 19);
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/imagens/assets/fundo-tec.png"))); // NOI18N
+        jLabel5.setText("BBBBB");
+        jPanel1.add(jLabel5);
+        jLabel5.setBounds(-30, -60, 950, 710);
+
+        pwdSenha2.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
+        pwdSenha2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        pwdSenha2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pwdSenha2ActionPerformed(evt);
+            }
+        });
+        pwdSenha2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                pwdSenha2KeyPressed(evt);
+            }
+        });
+        jPanel1.add(pwdSenha2);
+        pwdSenha2.setBounds(230, 240, 250, 40);
+
+        jTabbedPane1.addTab("Login", jPanel1);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel2.setLayout(null);
 
-        btnCadastrar.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        btnCadastrar.setBackground(new java.awt.Color(255, 255, 255));
+        btnCadastrar.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         btnCadastrar.setText("Cadastrar");
-        btnCadastrar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btnCadastrar.setBorder(null);
         btnCadastrar.setBorderPainted(false);
+        btnCadastrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCadastrarActionPerformed(evt);
             }
         });
         jPanel2.add(btnCadastrar);
-        btnCadastrar.setBounds(310, 330, 120, 40);
+        btnCadastrar.setBounds(200, 370, 120, 40);
 
         txtEmail.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -117,7 +201,7 @@ public class Cadastro_LoginBNS extends javax.swing.JFrame {
             }
         });
         jPanel2.add(txtEmail);
-        txtEmail.setBounds(110, 170, 320, 40);
+        txtEmail.setBounds(110, 180, 320, 40);
         if(txtEmail.getText().length() == 0){
             txtEmail.setText("Email");
         }
@@ -146,32 +230,75 @@ public class Cadastro_LoginBNS extends javax.swing.JFrame {
                 txtNomeFullFocusLost(evt);
             }
         });
+        txtNomeFull.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNomeFullActionPerformed(evt);
+            }
+        });
         jPanel2.add(txtNomeFull);
-        txtNomeFull.setBounds(110, 50, 320, 40);
+        txtNomeFull.setBounds(110, 40, 320, 40);
         if(txtNomeFull.getText().length() == 0){
             txtNomeFull.setText("Nome Completo");
         }
         txtNomeFull.setFont(new Font("Century Ghotic", Font.ITALIC, 12));
+
+        pwdSenha.setToolTipText("senhaaa");
         jPanel2.add(pwdSenha);
-        pwdSenha.setBounds(110, 250, 320, 40);
+        pwdSenha.setBounds(110, 320, 320, 40);
         pwdSenha.getAccessibleContext().setAccessibleDescription("Senha");
 
         jLabel1.setFont(new java.awt.Font("Century Gothic", 3, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("VendasBNS");
         jPanel2.add(jLabel1);
-        jLabel1.setBounds(500, 50, 210, 60);
+        jLabel1.setBounds(470, 110, 210, 60);
 
-        jLabel2.setText("Sua senha aqui:");
+        Cargo_Funcionario.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        Cargo_Funcionario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecionar cargo", "Gerente", "Vendedora", "Estoquista" }));
+        Cargo_Funcionario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Cargo_FuncionarioActionPerformed(evt);
+            }
+        });
+        jPanel2.add(Cargo_Funcionario);
+        Cargo_Funcionario.setBounds(110, 250, 320, 40);
+
+        jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 10)); // NOI18N
+        jLabel2.setText("Digite sua senha");
         jPanel2.add(jLabel2);
-        jLabel2.setBounds(110, 230, 82, 16);
+        jLabel2.setBounds(110, 300, 90, 14);
 
-        jTabbedPane1.addTab("tab2", jPanel2);
+        jLabel11.setFont(new java.awt.Font("Century Gothic", 1, 10)); // NOI18N
+        jLabel11.setText("Nome:");
+        jPanel2.add(jLabel11);
+        jLabel11.setBounds(110, 20, 90, 14);
+
+        jLabel12.setFont(new java.awt.Font("Century Gothic", 1, 10)); // NOI18N
+        jLabel12.setText("Usuário:");
+        jPanel2.add(jLabel12);
+        jLabel12.setBounds(110, 90, 90, 14);
+
+        jLabel13.setFont(new java.awt.Font("Century Gothic", 1, 10)); // NOI18N
+        jLabel13.setText("Digite seu email:");
+        jPanel2.add(jLabel13);
+        jLabel13.setBounds(110, 160, 90, 14);
+
+        jLabel14.setFont(new java.awt.Font("Century Gothic", 1, 10)); // NOI18N
+        jLabel14.setText("Selecione um cargo:");
+        jPanel2.add(jLabel14);
+        jLabel14.setBounds(110, 230, 110, 14);
+
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/imagens/assets/fund2.jpg"))); // NOI18N
+        jLabel10.setText("jLabel10");
+        jPanel2.add(jLabel10);
+        jLabel10.setBounds(-10, -20, 770, 510);
+
+        jTabbedPane1.addTab("Cadastro", jPanel2);
 
         getContentPane().add(jTabbedPane1);
-        jTabbedPane1.setBounds(0, 0, 730, 480);
+        jTabbedPane1.setBounds(0, 0, 730, 510);
 
-        setSize(new java.awt.Dimension(745, 483));
+        setSize(new java.awt.Dimension(745, 535));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -179,6 +306,7 @@ public class Cadastro_LoginBNS extends javax.swing.JFrame {
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         CadFunc func;
         DAOFunc dao;
+
         boolean retorno;
 
         if (txtNomeFull.getText().equals("") || txtNomeFull.getText().equals("Nome Completo")) {
@@ -193,12 +321,17 @@ public class Cadastro_LoginBNS extends javax.swing.JFrame {
         } else if (pwdSenha.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Campo Senha vazio!");
             pwdSenha.requestFocus();
+        } else if (Cargo_Funcionario.getSelectedItem().equals("Selecionar cargo")) {
+            JOptionPane.showMessageDialog(null, "Selecione um cargo!", null, WIDTH);
+            Cargo_Funcionario.requestFocus();
         } else {
             func = new CadFunc();
             func.setNome(txtNomeFull.getText());
             func.setUsuario(txtUser.getText());
             func.setEmail(txtEmail.getText());
             func.setSenha(pwdSenha.getText());
+            func.setCargo(Cargo_Funcionario.getSelectedItem().toString());
+
             dao = new DAOFunc();
             retorno = dao.conectar();
             if (retorno == true) {
@@ -260,16 +393,29 @@ public class Cadastro_LoginBNS extends javax.swing.JFrame {
     private void txtUsuarioLoginFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUsuarioLoginFocusGained
         if (txtUsuarioLogin.getText().equals("Usuario:")) {
             txtUsuarioLogin.setText("");
-            
+
         }
     }//GEN-LAST:event_txtUsuarioLoginFocusGained
-  
+
+//    public class ValidateEmail {
+//        public static void main(String[] args) {
+//            String email = txtEmail;
+//            
+//        }
+//        
+//        public static boolean valEmail(String input) {
+//            String emailRegex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
+//            Pattern emailPat = Pattern.compile(emailRegex, Pattern.CASE_INSENSITIVE);
+//            Matcher matcher = emailPat.matcher(input);
+//            return matcher.find();
+//        }
+//    }
     //Botão Entrar
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
         try {
             String url = "jdbc:mysql://localhost:3306/vendasbns";
             String user = "root";
-            String password = "WALL01101FfX7ss";
+            String password = "12345";
 
             Connection con;
             PreparedStatement st;
@@ -306,7 +452,7 @@ public class Cadastro_LoginBNS extends javax.swing.JFrame {
         }        // TODO add your handling code here:
     }//GEN-LAST:event_btnEntrarActionPerformed
     //Fechando botão entrar
-    
+
     //Ação TextBox TelaLogin
     private void txtUsuarioLoginFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUsuarioLoginFocusLost
         if (txtUsuarioLogin.getText().equals("")) {
@@ -314,6 +460,30 @@ public class Cadastro_LoginBNS extends javax.swing.JFrame {
             txtUsuarioLogin.setFont(new Font("Century Ghotic", Font.ITALIC, 24));
         }
     }//GEN-LAST:event_txtUsuarioLoginFocusLost
+
+    private void txtNomeFullActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeFullActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNomeFullActionPerformed
+
+    private void Cargo_FuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cargo_FuncionarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Cargo_FuncionarioActionPerformed
+
+    private void pwdSenha2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pwdSenha2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pwdSenha2ActionPerformed
+
+    private void pwdSenha2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pwdSenha2KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pwdSenha2KeyPressed
+
+    private void pwdSenha1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pwdSenha1KeyPressed
+
+    }//GEN-LAST:event_pwdSenha1KeyPressed
+
+    private void pwdSenha1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pwdSenha1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pwdSenha1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -332,13 +502,17 @@ public class Cadastro_LoginBNS extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Cadastro_LoginBNS.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Cadastro_LoginBNS.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Cadastro_LoginBNS.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Cadastro_LoginBNS.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Cadastro_LoginBNS.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Cadastro_LoginBNS.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Cadastro_LoginBNS.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Cadastro_LoginBNS.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -358,15 +532,31 @@ public class Cadastro_LoginBNS extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> Cargo_Funcionario;
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnEntrar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JPasswordField pwdSenha;
-    private static transient javax.swing.JPasswordField pwdSenha1;
+    private javax.swing.JPasswordField pwdSenha1;
+    private static transient javax.swing.JPasswordField pwdSenha2;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtNomeFull;
     private javax.swing.JTextField txtUser;

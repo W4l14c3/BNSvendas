@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
 public class DAOFunc {
     String url = "jdbc:mysql://localhost:3306/vendasbns";
     String user = "root";
-    String password = "WALL01101FfX7ss";
+    String password = "12345";
     
     private Connection conn; //Declarando variavel conexão
     private PreparedStatement pt;//Para codigos SQL

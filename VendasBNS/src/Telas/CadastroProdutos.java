@@ -6,6 +6,7 @@
 package Telas;
 
 import java.awt.Font;
+import static java.awt.image.ImageObserver.WIDTH;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -45,13 +46,25 @@ public class CadastroProdutos extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtCodigodeBarras = new javax.swing.JTextField();
         ftfValor = new javax.swing.JFormattedTextField();
+        jButton2 = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
 
         txtCodigo.setEditable(false);
         getContentPane().add(txtCodigo);
-        txtCodigo.setBounds(20, 130, 240, 40);
+        txtCodigo.setBounds(20, 120, 240, 40);
 
         txtNome.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -62,16 +75,24 @@ public class CadastroProdutos extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtNome);
-        txtNome.setBounds(270, 180, 420, 40);
+        txtNome.setBounds(270, 190, 420, 40);
         txtNome.setText("Nome:");
         txtNome.setFont(new Font("Century Ghotic", Font.ITALIC, 12));
 
-        cbxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MemoriaRAM", "HD", "SSD", "SSD 2.0 NVME", "Monitor", "Gabinete", "Placa mãe", "Placa de Video", "Processador", "Mouse", "Teclado", " " }));
+        cbxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione o produto", "MemoriaRAM", "HD", "SSD", "SSD 2.0 NVME", "Monitor", "Gabinete", "Placa mãe", "Placa de Video", "Processador", "Mouse", "Teclado", " " }));
+        cbxCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxCategoriaActionPerformed(evt);
+            }
+        });
         getContentPane().add(cbxCategoria);
-        cbxCategoria.setBounds(20, 230, 330, 30);
+        cbxCategoria.setBounds(20, 250, 240, 30);
 
-        btnSalvar.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        btnSalvar.setBackground(new java.awt.Color(47, 174, 22));
+        btnSalvar.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
+        btnSalvar.setForeground(new java.awt.Color(255, 255, 255));
         btnSalvar.setText("Salvar");
+        btnSalvar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarActionPerformed(evt);
@@ -80,14 +101,15 @@ public class CadastroProdutos extends javax.swing.JFrame {
         getContentPane().add(btnSalvar);
         btnSalvar.setBounds(20, 300, 330, 40);
 
+        jLabel1.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
         jLabel1.setText("VendasBNS | GESTÃO DE PRODUTOS");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(10, 10, 400, 30);
+        jLabel1.setBounds(20, 0, 400, 40);
 
-        jLabel2.setFont(new java.awt.Font("Century Gothic", 0, 36)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
         jLabel2.setText("Cadastro de Produtos");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(10, 50, 410, 60);
+        jLabel2.setBounds(20, 50, 410, 50);
 
         txtCodigodeBarras.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -98,15 +120,93 @@ public class CadastroProdutos extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtCodigodeBarras);
-        txtCodigodeBarras.setBounds(270, 130, 420, 40);
+        txtCodigodeBarras.setBounds(270, 120, 420, 40);
         txtCodigodeBarras.setText("Codigo de Barras:");
         txtCodigodeBarras.setFont(new Font("Century Ghotic", Font.ITALIC, 12));
 
         ftfValor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.###"))));
         getContentPane().add(ftfValor);
-        ftfValor.setBounds(20, 180, 240, 40);
+        ftfValor.setBounds(20, 190, 240, 40);
 
-        setSize(new java.awt.Dimension(761, 490));
+        jButton2.setBackground(new java.awt.Color(51, 105, 248));
+        jButton2.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("Voltar");
+        jButton2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, null, java.awt.Color.white, java.awt.Color.white));
+        jButton2.setBorderPainted(false);
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2);
+        jButton2.setBounds(660, 10, 80, 23);
+
+        jLabel11.setFont(new java.awt.Font("Century Gothic", 1, 10)); // NOI18N
+        jLabel11.setText("Quantidade de itens:");
+        getContentPane().add(jLabel11);
+        jLabel11.setBounds(20, 170, 130, 14);
+
+        jLabel12.setFont(new java.awt.Font("Century Gothic", 1, 10)); // NOI18N
+        jLabel12.setText("Código de barras:");
+        getContentPane().add(jLabel12);
+        jLabel12.setBounds(270, 100, 90, 14);
+
+        jLabel13.setFont(new java.awt.Font("Century Gothic", 1, 10)); // NOI18N
+        jLabel13.setText("Nome:");
+        getContentPane().add(jLabel13);
+        jLabel13.setBounds(270, 170, 90, 14);
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/imagens/assets/fund2.jpg"))); // NOI18N
+        jLabel3.setText("jLabel3");
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(-480, -10, 1320, 510);
+
+        jMenu1.setText("Cadastro de Produtos");
+        jMenu1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/imagens/assets/outline_inventory_2_black_24dp.png"))); // NOI18N
+        jMenuItem2.setText("Estoque");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
+
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/imagens/assets/outline_request_quote_black_24dp.png"))); // NOI18N
+        jMenuItem3.setText("Fazer pedido");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem3);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Sair");
+        jMenu2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/imagens/assets/logout.png"))); // NOI18N
+        jMenuItem1.setText("Deslogar");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem1);
+
+        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/imagens/assets/power-off.png"))); // NOI18N
+        jMenuItem4.setText("Fechar");
+        jMenu2.add(jMenuItem4);
+
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
+
+        setSize(new java.awt.Dimension(761, 551));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -132,7 +232,12 @@ public class CadastroProdutos extends javax.swing.JFrame {
         } else if (txtCodigodeBarras.getText().equals("Codigo de Barras:")) {
             JOptionPane.showMessageDialog(null, "O Campo Codigo de barras vazio! Insira um valor valido.");
             txtCodigodeBarras.requestFocus();
-        } else if (ftfValor.getText().equals("")) {
+        }
+            else if (cbxCategoria.getSelectedItem().equals("Selecione o produto")) {
+            JOptionPane.showMessageDialog(null, "Selecione um produto!", null, WIDTH); 
+            cbxCategoria.requestFocus();
+        }
+        else if (ftfValor.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "O Campo valor deve ser preenchido");
         } else {
             try {
@@ -191,6 +296,38 @@ public class CadastroProdutos extends javax.swing.JFrame {
             txtNome.setFont(new Font("Century Ghotic", Font.ITALIC, 12));
         }
     }//GEN-LAST:event_txtNomeFocusLost
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        TelaInicial t = new TelaInicial();
+        t.show();
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void cbxCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxCategoriaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxCategoriaActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        Cadastro_LoginBNS t = new Cadastro_LoginBNS();
+        t.show();
+        this.setVisible(false);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        Estoque est = new Estoque();
+        est.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        VendasBNS t = new VendasBNS();
+        t.show(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
   // Auto complete para menssagems no campo
     
     
@@ -248,8 +385,20 @@ public class CadastroProdutos extends javax.swing.JFrame {
     private javax.swing.JButton btnSalvar;
     private javax.swing.JComboBox<String> cbxCategoria;
     private javax.swing.JFormattedTextField ftfValor;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtCodigodeBarras;
     private javax.swing.JTextField txtNome;

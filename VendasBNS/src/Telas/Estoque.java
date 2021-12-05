@@ -20,6 +20,10 @@ import javax.swing.table.DefaultTableModel;
 import persistencia.CadFunc;
 import persistencia.DAOFunc;
 import java.util.Scanner;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
 public class Estoque extends javax.swing.JFrame {
 
@@ -39,21 +43,51 @@ public class Estoque extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
+        jFrame1 = new javax.swing.JFrame();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
+        jPopupMenu2 = new javax.swing.JPopupMenu();
         jTextField1 = new javax.swing.JTextField();
         txtBuscAvançada = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblProd = new javax.swing.JTable();
         btnMaisResult = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jMenuBar2 = new javax.swing.JMenuBar();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
+
+        jCheckBoxMenuItem1.setSelected(true);
+        jCheckBoxMenuItem1.setText("jCheckBoxMenuItem1");
+
+        jMenu1.setText("File");
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Edit");
+        jMenuBar1.add(jMenu2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
         getContentPane().add(jTextField1);
         jTextField1.setBounds(10, 110, 110, 40);
 
+        txtBuscAvançada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscAvançadaActionPerformed(evt);
+            }
+        });
         txtBuscAvançada.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtBuscAvançadaKeyReleased(evt);
@@ -71,18 +105,9 @@ public class Estoque extends javax.swing.JFrame {
         getContentPane().add(btnBuscar);
         btnBuscar.setBounds(350, 120, 110, 30);
 
-        jLabel1.setText("VendasBNS | GESTÃO DE PRODUTOS");
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(10, 10, 400, 30);
-
-        jLabel2.setFont(new java.awt.Font("Century Gothic", 0, 36)); // NOI18N
-        jLabel2.setText("Lista de produtos cadastrados");
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(10, 50, 550, 60);
-
         jLabel3.setText("consulta avançada");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(610, 100, 110, 16);
+        jLabel3.setBounds(480, 100, 110, 14);
 
         tblProd.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -102,9 +127,102 @@ public class Estoque extends javax.swing.JFrame {
         getContentPane().add(btnMaisResult);
         btnMaisResult.setBounds(180, 410, 330, 40);
 
-        setSize(new java.awt.Dimension(761, 490));
+        jButton1.setBackground(new java.awt.Color(51, 105, 248));
+        jButton1.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Voltar");
+        jButton1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, null, java.awt.Color.white, java.awt.Color.white));
+        jButton1.setBorderPainted(false);
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1);
+        jButton1.setBounds(661, 10, 80, 23);
+
+        jLabel5.setFont(new java.awt.Font("Century Gothic", 1, 12)); // NOI18N
+        jLabel5.setText("VendasBNS | GESTÃO DE PRODUTOS");
+        getContentPane().add(jLabel5);
+        jLabel5.setBounds(20, 0, 400, 40);
+
+        jLabel6.setFont(new java.awt.Font("Century Gothic", 1, 24)); // NOI18N
+        jLabel6.setText("Lista de produtos cadastrados");
+        getContentPane().add(jLabel6);
+        jLabel6.setBounds(20, 50, 410, 50);
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/imagens/assets/fund2.jpg"))); // NOI18N
+        jLabel4.setText("jLabel4");
+        getContentPane().add(jLabel4);
+        jLabel4.setBounds(-480, -60, 1240, 580);
+
+        jMenu3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jMenu3.setText("Estoque");
+        jMenu3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/imagens/assets/outline_request_quote_black_24dp.png"))); // NOI18N
+        jMenuItem1.setText("Fazer pedido");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem1);
+
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/imagens/assets/outline_add_circle_outline_black_24dp.png"))); // NOI18N
+        jMenuItem2.setText("Cadastrar produto");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem2);
+
+        jMenuBar2.add(jMenu3);
+
+        jMenu4.setText("Sair");
+        jMenu4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/imagens/assets/logout.png"))); // NOI18N
+        jMenuItem3.setText("Deslogar");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem3);
+
+        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/imagens/assets/power-off.png"))); // NOI18N
+        jMenuItem4.setText("Fechar");
+        jMenu4.add(jMenuItem4);
+
+        jMenuBar2.add(jMenu4);
+
+        setJMenuBar(jMenuBar2);
+
+        setSize(new java.awt.Dimension(761, 555));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtBuscAvançadaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscAvançadaKeyReleased
+        int teclado = +1;
+        for (int i = 0; i < teclado; i++) {
+            String busca = txtBuscAvançada.getText();
+            pesquisaTxt(busca);
+        }
+    }//GEN-LAST:event_txtBuscAvançadaKeyReleased
+
+    private void txtBuscAvançadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscAvançadaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscAvançadaActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        TelaInicial t = new TelaInicial();
+        t.show();
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         try {
@@ -116,7 +234,7 @@ public class Estoque extends javax.swing.JFrame {
 
             String url = "jdbc:mysql://localhost:3306/vendasbns";
             String user = "root";
-            String password = "WALL01101FfX7ss";
+            String password = "12345";
 
             con = DriverManager.getConnection(url, user, password);
             st = con.prepareStatement("SELECT * FROM produtos");
@@ -128,7 +246,7 @@ public class Estoque extends javax.swing.JFrame {
 
                 //Criar uma arrey (dados) que carrega os dados do rs
                 Object[] dados = {rs.getString("codigo"), rs.getString("codigodebarras"), rs.getString("nome"),
-                    rs.getString("categoria"),rs.getString("valor"), rs.getString("dataAt"), rs.getString("hora")};
+                    rs.getString("categoria"), rs.getString("valor"), rs.getString("dataAt"), rs.getString("hora")};
                 tblProduto.addRow(dados);//Adiciona os dados da arrey dados a uma row(linha)
             }
         } catch (ClassNotFoundException | SQLException ex) {
@@ -136,17 +254,29 @@ public class Estoque extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-    private void txtBuscAvançadaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscAvançadaKeyReleased
-         int teclado =+1;
-        for(int i =0; i< teclado; i++){
-            String busca = txtBuscAvançada.getText();
-            pesquisaTxt(busca);
-        }
-    }//GEN-LAST:event_txtBuscAvançadaKeyReleased
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        CadastroProdutos t = new CadastroProdutos();
+        t.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
-     private void pesquisaTxt(String busca) {   
-         
-         try {
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        Cadastro_LoginBNS t = new Cadastro_LoginBNS();
+        t.show();
+        this.setVisible(false);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        VendasBNS t = new VendasBNS();
+        t.show(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void pesquisaTxt(String busca) {
+
+        try {
             PreparedStatement st;
             Connection con;
             ResultSet rs;
@@ -155,10 +285,10 @@ public class Estoque extends javax.swing.JFrame {
 
             String url = "jdbc:mysql://localhost:3306/vendasbns";
             String user = "root";
-            String password = "WALL01101FfX7ss";
+            String password = "12345";
 
             con = DriverManager.getConnection(url, user, password);
-            st = con.prepareStatement("SELECT * FROM produtos WHERE nome LIKE'"+busca+"_%'");
+            st = con.prepareStatement("SELECT * FROM produtos WHERE nome LIKE'" + busca + "_%'");
             rs = st.executeQuery();
 
             DefaultTableModel tblProduto = (DefaultTableModel) tblProd.getModel(); //Cria um modelo da tabela
@@ -167,53 +297,73 @@ public class Estoque extends javax.swing.JFrame {
 
                 //Criar uma arrey (dados) que carrega os dados do rs
                 Object[] dados = {rs.getString("codigo"), rs.getString("codigodebarras"), rs.getString("nome"),
-                    rs.getString("categoria"),rs.getString("valor"), rs.getString("dataAt"), rs.getString("hora")};
+                    rs.getString("categoria"), rs.getString("valor"), rs.getString("dataAt"), rs.getString("hora")};
                 tblProduto.addRow(dados);//Adiciona os dados da arrey dados a uma row(linha)
             }
         } catch (ClassNotFoundException | SQLException ex) {
 
         }
-     }
-    
-    
-    
-    
-/**
- * @param args the command line arguments
- */
-public static void main(String args[]) {
+    }
+
+    public class Menu extends JFrame {
+
+        JMenuBar barra = new JMenuBar();
+
+        JMenu menu1 = new JMenu("Opções");
+        JMenu menu2 = new JMenu("Sair");
+                    
+        JMenuItem item1 = new JMenuItem("Logout");
+        JMenuItem item2 = new JMenuItem("Desligar");
+
+        public Menu() {
+
+            setJMenuBar(barra);
+            barra.add(menu1);
+            barra.add(menu2);
+
+            setTitle("Menu");
+            setSize(600, 400);
+            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            setLocationRelativeTo(null);
+            setVisible(true);
+        }
+
+    }
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+        
+        
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
 
-}
+                }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Estoque.class  
+            java.util.logging.Logger.getLogger(Estoque.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Estoque.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
-} catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Estoque.class  
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Estoque.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-} catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Estoque.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Estoque.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Estoque.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -228,9 +378,25 @@ public static void main(String args[]) {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnMaisResult;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
+    private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JPopupMenu jPopupMenu2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTable tblProd;
