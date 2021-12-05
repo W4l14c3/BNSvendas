@@ -23,6 +23,7 @@ import persistencia.DAOFunc;
  */
 public class Cadastro_LoginBNS extends javax.swing.JFrame {
 
+     String teste;
     /**
      * Creates new form CadastroBNS
      */
@@ -266,6 +267,7 @@ public class Cadastro_LoginBNS extends javax.swing.JFrame {
   
     //Botão Entrar
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
+       
         try {
             String url = "jdbc:mysql://localhost:3306/vendasbns";
             String user = "root";
@@ -288,6 +290,7 @@ public class Cadastro_LoginBNS extends javax.swing.JFrame {
                 txtUsuarioLogin.setBackground(Color.white);
                 pwdSenha1.setBackground(Color.white);
             } else if (rs.next()) {
+               //teste =  rs.getString("nome");
                 TelaInicial t = new TelaInicial();
                 t.show();
                 this.setVisible(false);

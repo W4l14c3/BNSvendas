@@ -11,9 +11,7 @@ package Telas;
  */
 public class VendasBNS extends javax.swing.JFrame {
 
-    /**
-     * Creates new form VendasBNS
-     */
+
     public VendasBNS() {
         initComponents();
     }

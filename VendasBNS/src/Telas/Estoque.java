@@ -20,12 +20,13 @@ import javax.swing.table.DefaultTableModel;
 import persistencia.CadFunc;
 import persistencia.DAOFunc;
 import java.util.Scanner;
+import persistencia.Alterar;
 
 public class Estoque extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Estoque
-     */
+   private int cod;
+   int codiguin;
+    
     public Estoque() {
         initComponents();
     }
@@ -39,37 +40,119 @@ public class Estoque extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblProd1 = new javax.swing.JTable();
+        txtCodigo1 = new javax.swing.JTextField();
+        txtNome = new javax.swing.JTextField();
+        txtCodigodeBarras = new javax.swing.JTextField();
+        btnBuscar1 = new javax.swing.JButton();
+        btnAlterar1 = new javax.swing.JButton();
+        btnDeletar = new javax.swing.JButton();
+        ftfValor = new javax.swing.JFormattedTextField();
+        cbxCategoria = new javax.swing.JComboBox<>();
+        txtCodigo = new javax.swing.JTextField();
         txtBuscAvançada = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblProd = new javax.swing.JTable();
-        btnMaisResult = new javax.swing.JButton();
+        btnAlterar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
-        getContentPane().add(jTextField1);
-        jTextField1.setBounds(10, 110, 110, 40);
 
+        jPanel1.setLayout(null);
+
+        tblProd1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+
+            new String [] {
+                "codigo", "codigodebarras", "nome", "categoria", "data", "hora"
+            }
+        ));
+        jScrollPane2.setViewportView(tblProd1);
+
+        jPanel1.add(jScrollPane2);
+        jScrollPane2.setBounds(10, 230, 730, 240);
+
+        txtCodigo1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtCodigo1.setText("Codigo:");
+        jPanel1.add(txtCodigo1);
+        txtCodigo1.setBounds(10, 30, 64, 22);
+
+        txtNome.setText("Nome:");
+        jPanel1.add(txtNome);
+        txtNome.setBounds(10, 70, 270, 30);
+
+        txtCodigodeBarras.setText("CodigodeBarras:");
+        jPanel1.add(txtCodigodeBarras);
+        txtCodigodeBarras.setBounds(300, 70, 270, 30);
+
+        btnBuscar1.setText("Buscar");
+        btnBuscar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscar1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnBuscar1);
+        btnBuscar1.setBounds(400, 170, 110, 40);
+
+        btnAlterar1.setText("Alterar");
+        btnAlterar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterar1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnAlterar1);
+        btnAlterar1.setBounds(140, 170, 110, 40);
+
+        btnDeletar.setText("Deletar");
+        jPanel1.add(btnDeletar);
+        btnDeletar.setBounds(270, 170, 110, 40);
+
+        ftfValor.setText("Valor");
+        jPanel1.add(ftfValor);
+        ftfValor.setBounds(300, 110, 270, 30);
+
+        cbxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel1.add(cbxCategoria);
+        cbxCategoria.setBounds(10, 110, 270, 30);
+
+        getContentPane().add(jPanel1);
+        jPanel1.setBounds(0, 0, 740, 480);
+        getContentPane().add(txtCodigo);
+        txtCodigo.setBounds(10, 110, 110, 40);
+
+        txtBuscAvançada.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtBuscAvançadaFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtBuscAvançadaFocusLost(evt);
+            }
+        });
         txtBuscAvançada.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtBuscAvançadaKeyReleased(evt);
             }
         });
         getContentPane().add(txtBuscAvançada);
-        txtBuscAvançada.setBounds(480, 120, 240, 30);
+        txtBuscAvançada.setBounds(490, 120, 240, 30);
+        txtBuscAvançada.setText("Busca avançada: ");
+        txtBuscAvançada.setFont(new Font("Century Ghotic", Font.ITALIC, 12));
 
-        btnBuscar.setText("Buscar");
+        btnBuscar.setText("BuscarTodos");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
             }
         });
         getContentPane().add(btnBuscar);
-        btnBuscar.setBounds(350, 120, 110, 30);
+        btnBuscar.setBounds(180, 120, 110, 30);
 
         jLabel1.setText("VendasBNS | GESTÃO DE PRODUTOS");
         getContentPane().add(jLabel1);
@@ -80,10 +163,6 @@ public class Estoque extends javax.swing.JFrame {
         getContentPane().add(jLabel2);
         jLabel2.setBounds(10, 50, 550, 60);
 
-        jLabel3.setText("consulta avançada");
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(610, 100, 110, 16);
-
         tblProd.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -93,14 +172,24 @@ public class Estoque extends javax.swing.JFrame {
                 "codigo", "codigodebarras", "nome", "categoria", "data", "hora"
             }
         ));
+        tblProd.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblProdMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblProd);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(20, 160, 710, 240);
+        jScrollPane1.setBounds(10, 160, 720, 310);
 
-        btnMaisResult.setText("Carregar mais resultados");
-        getContentPane().add(btnMaisResult);
-        btnMaisResult.setBounds(180, 410, 330, 40);
+        btnAlterar.setText("Alterar >>");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnAlterar);
+        btnAlterar.setBounds(370, 120, 110, 30);
 
         setSize(new java.awt.Dimension(761, 490));
         setLocationRelativeTo(null);
@@ -143,6 +232,47 @@ public class Estoque extends javax.swing.JFrame {
             pesquisaTxt(busca);
         }
     }//GEN-LAST:event_txtBuscAvançadaKeyReleased
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        this.cod = codiguin;
+        if(this.cod >= 0){
+            TelaAlterar alt = new TelaAlterar();
+            alt.setVisible(true);
+            this.setVisible(false);
+        }
+    }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void txtBuscAvançadaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBuscAvançadaFocusGained
+        if(txtBuscAvançada.getText().equals("Busca avançada: ")){
+            txtBuscAvançada.setText("");
+        }
+        
+        
+
+    }//GEN-LAST:event_txtBuscAvançadaFocusGained
+
+    private void txtBuscAvançadaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBuscAvançadaFocusLost
+        if(txtBuscAvançada.getText().equals("")){
+            txtBuscAvançada.setText("Busca avançada: ");
+            txtBuscAvançada.setFont(new Font("Century Ghotic", Font.ITALIC, 12));
+        }
+    }//GEN-LAST:event_txtBuscAvançadaFocusLost
+
+    private void tblProdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProdMouseClicked
+        DefaultTableModel tblProducts = (DefaultTableModel) tblProd.getModel();
+        txtCodigo.setText(tblProducts.getValueAt(tblProd.getSelectedRow(), 0).toString());
+        Alterar alt = new Alterar();
+        codiguin = Integer.parseInt(tblProducts.getValueAt(tblProd.getSelectedRow(), 0).toString());
+        
+    }//GEN-LAST:event_tblProdMouseClicked
+
+    private void btnBuscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnBuscar1ActionPerformed
+
+    private void btnAlterar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterar1ActionPerformed
+        
+    }//GEN-LAST:event_btnAlterar1ActionPerformed
 
      private void pesquisaTxt(String busca) {   
          
@@ -226,14 +356,38 @@ public static void main(String args[]) {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAlterar;
+    private javax.swing.JButton btnAlterar1;
     private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton btnMaisResult;
+    private javax.swing.JButton btnBuscar1;
+    private javax.swing.JButton btnDeletar;
+    private javax.swing.JComboBox<String> cbxCategoria;
+    private javax.swing.JFormattedTextField ftfValor;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tblProd;
+    private javax.swing.JTable tblProd1;
     private javax.swing.JTextField txtBuscAvançada;
+    private javax.swing.JTextField txtCodigo;
+    private javax.swing.JTextField txtCodigo1;
+    private javax.swing.JTextField txtCodigodeBarras;
+    private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * @return the cod
+     */
+    public int getCod() {
+        return cod;
+    }
+
+    /**
+     * @param cod the cod to set
+     */
+    public void setCod(int cod) {
+        this.cod = cod;
+    }
 }
