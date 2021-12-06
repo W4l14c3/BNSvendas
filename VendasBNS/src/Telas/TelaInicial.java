@@ -34,6 +34,7 @@ public class TelaInicial extends javax.swing.JFrame {
         btnEstoque = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         lblDataHora = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -45,7 +46,7 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(0, 130, 170, 40);
+        jButton1.setBounds(260, 140, 170, 40);
 
         btnEstoque.setText("Estoque");
         btnEstoque.addActionListener(new java.awt.event.ActionListener() {
@@ -54,7 +55,7 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnEstoque);
-        btnEstoque.setBounds(0, 210, 170, 40);
+        btnEstoque.setBounds(260, 220, 170, 40);
 
         jButton3.setText("Cadastro de Produtos");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -63,12 +64,21 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton3);
-        jButton3.setBounds(0, 290, 170, 40);
+        jButton3.setBounds(260, 300, 170, 40);
 
         lblDataHora.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
         lblDataHora.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         getContentPane().add(lblDataHora);
         lblDataHora.setBounds(160, 0, 450, 50);
+
+        jButton2.setText("Sair");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2);
+        jButton2.setBounds(670, 460, 75, 22);
 
         setSize(new java.awt.Dimension(761, 490));
         setLocationRelativeTo(null);
@@ -78,7 +88,11 @@ public class TelaInicial extends javax.swing.JFrame {
     
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+
+        VendasBNS vds = new VendasBNS();
+        vds.setVisible(true);
+        this.dispose();
+        
     }//GEN-LAST:event_jButton1ActionPerformed
     //Tarefa temporizador
     
@@ -128,6 +142,11 @@ public class TelaInicial extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnEstoqueActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+
+       
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -166,6 +185,7 @@ public class TelaInicial extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEstoque;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel lblDataHora;
     // End of variables declaration//GEN-END:variables

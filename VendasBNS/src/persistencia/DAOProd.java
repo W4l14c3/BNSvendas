@@ -42,9 +42,9 @@ public class DAOProd {
     
     public int salvar(CadProd prod){
         try {
-            pt = conn.prepareStatement("INSERT INTO produtos (codigodebarras, nome, categoria, valor, dataAt, hora, img) VALUES (?,?,?,?,?,?,?)");// INSERÇÃO DE DADOS USANDO (?) PARAMETROS
+            pt = conn.prepareStatement("INSERT INTO produtos (descricao, nome, categoria, valor, dataAt, hora, img) VALUES (?,?,?,?,?,?,?)");// INSERÇÃO DE DADOS USANDO (?) PARAMETROS
             // Abaixo estão as variaveis da classe CadFunc que serão inseridas no lugar parametros(?)
-            pt.setString(1, prod.getCodigodeBarras());
+            pt.setString(1, prod.getDescricao());
             pt.setString(2, prod.getNome());
             pt.setString(3, prod.getCategoria());
             pt.setString(4, prod.getValor());

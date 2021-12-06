@@ -5,30 +5,34 @@
  */
 package Telas;
 
-import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import persistencia.CadFunc;
-import persistencia.DAOFunc;
-import java.util.Scanner;
+import javax.swing.JTable;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumnModel;
 import persistencia.Alterar;
+import persistencia.DAOalterar;
 
 public class Estoque extends javax.swing.JFrame {
 
-   private int cod;
-   int codiguin;
-    
+    int codiguin;
+
     public Estoque() {
-        initComponents();
+        initComponents();;
+        pnlAlterar.enable(false);
+        pnlAlterar.disable();
+        pnlAlterar.setVisible(false);
+        carregaTabela();
+
     }
 
     /**
@@ -40,17 +44,7 @@ public class Estoque extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tblProd1 = new javax.swing.JTable();
-        txtCodigo1 = new javax.swing.JTextField();
-        txtNome = new javax.swing.JTextField();
-        txtCodigodeBarras = new javax.swing.JTextField();
-        btnBuscar1 = new javax.swing.JButton();
-        btnAlterar1 = new javax.swing.JButton();
-        btnDeletar = new javax.swing.JButton();
-        ftfValor = new javax.swing.JFormattedTextField();
-        cbxCategoria = new javax.swing.JComboBox<>();
+        pnlEstoque = new javax.swing.JPanel();
         txtCodigo = new javax.swing.JTextField();
         txtBuscAvançada = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
@@ -59,72 +53,26 @@ public class Estoque extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblProd = new javax.swing.JTable();
         btnAlterar = new javax.swing.JButton();
+        pnlAlterar = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblProd1 = new javax.swing.JTable();
+        txtCodigo1 = new javax.swing.JTextField();
+        txtNome = new javax.swing.JTextField();
+        btnAlterar1 = new javax.swing.JButton();
+        btnDeletar = new javax.swing.JButton();
+        ftfValor = new javax.swing.JFormattedTextField();
+        txtCategoria = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        txaDescricao = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
 
-        jPanel1.setLayout(null);
+        pnlEstoque.setLayout(null);
 
-        tblProd1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-
-            new String [] {
-                "codigo", "codigodebarras", "nome", "categoria", "data", "hora"
-            }
-        ));
-        jScrollPane2.setViewportView(tblProd1);
-
-        jPanel1.add(jScrollPane2);
-        jScrollPane2.setBounds(10, 230, 730, 240);
-
-        txtCodigo1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtCodigo1.setText("Codigo:");
-        jPanel1.add(txtCodigo1);
-        txtCodigo1.setBounds(10, 30, 64, 22);
-
-        txtNome.setText("Nome:");
-        jPanel1.add(txtNome);
-        txtNome.setBounds(10, 70, 270, 30);
-
-        txtCodigodeBarras.setText("CodigodeBarras:");
-        jPanel1.add(txtCodigodeBarras);
-        txtCodigodeBarras.setBounds(300, 70, 270, 30);
-
-        btnBuscar1.setText("Buscar");
-        btnBuscar1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscar1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnBuscar1);
-        btnBuscar1.setBounds(400, 170, 110, 40);
-
-        btnAlterar1.setText("Alterar");
-        btnAlterar1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAlterar1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnAlterar1);
-        btnAlterar1.setBounds(140, 170, 110, 40);
-
-        btnDeletar.setText("Deletar");
-        jPanel1.add(btnDeletar);
-        btnDeletar.setBounds(270, 170, 110, 40);
-
-        ftfValor.setText("Valor");
-        jPanel1.add(ftfValor);
-        ftfValor.setBounds(300, 110, 270, 30);
-
-        cbxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(cbxCategoria);
-        cbxCategoria.setBounds(10, 110, 270, 30);
-
-        getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 740, 480);
-        getContentPane().add(txtCodigo);
+        txtCodigo.setEditable(false);
+        pnlEstoque.add(txtCodigo);
         txtCodigo.setBounds(10, 110, 110, 40);
 
         txtBuscAvançada.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -140,7 +88,7 @@ public class Estoque extends javax.swing.JFrame {
                 txtBuscAvançadaKeyReleased(evt);
             }
         });
-        getContentPane().add(txtBuscAvançada);
+        pnlEstoque.add(txtBuscAvançada);
         txtBuscAvançada.setBounds(490, 120, 240, 30);
         txtBuscAvançada.setText("Busca avançada: ");
         txtBuscAvançada.setFont(new Font("Century Ghotic", Font.ITALIC, 12));
@@ -151,27 +99,29 @@ public class Estoque extends javax.swing.JFrame {
                 btnBuscarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnBuscar);
+        pnlEstoque.add(btnBuscar);
         btnBuscar.setBounds(180, 120, 110, 30);
 
         jLabel1.setText("VendasBNS | GESTÃO DE PRODUTOS");
-        getContentPane().add(jLabel1);
+        pnlEstoque.add(jLabel1);
         jLabel1.setBounds(10, 10, 400, 30);
 
         jLabel2.setFont(new java.awt.Font("Century Gothic", 0, 36)); // NOI18N
         jLabel2.setText("Lista de produtos cadastrados");
-        getContentPane().add(jLabel2);
+        pnlEstoque.add(jLabel2);
         jLabel2.setBounds(10, 50, 550, 60);
 
+        tblProd.setAutoCreateRowSorter(true);
         tblProd.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
 
             new String [] {
-                "codigo", "codigodebarras", "nome", "categoria", "data", "hora"
+                "codigo", "descricao", "nome", "categoria","valor", "data", "hora", "data de alteração"
             }
         ));
+        tblProd.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         tblProd.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblProdMouseClicked(evt);
@@ -179,8 +129,8 @@ public class Estoque extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblProd);
 
-        getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(10, 160, 720, 310);
+        pnlEstoque.add(jScrollPane1);
+        jScrollPane1.setBounds(10, 160, 980, 310);
 
         btnAlterar.setText("Alterar >>");
         btnAlterar.addActionListener(new java.awt.event.ActionListener() {
@@ -188,10 +138,85 @@ public class Estoque extends javax.swing.JFrame {
                 btnAlterarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnAlterar);
+        pnlEstoque.add(btnAlterar);
         btnAlterar.setBounds(370, 120, 110, 30);
 
-        setSize(new java.awt.Dimension(761, 490));
+        getContentPane().add(pnlEstoque);
+        pnlEstoque.setBounds(0, 0, 1000, 482);
+
+        pnlAlterar.setEnabled(false);
+        pnlAlterar.setLayout(null);
+
+        tblProd1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+
+            new String [] {
+                "codigo", "descricao", "nome", "categoria", "valor" , "data", "hora", "data de alteração"
+            }
+        ));
+        tblProd1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        tblProd1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblProd1MouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tblProd1);
+
+        pnlAlterar.add(jScrollPane2);
+        jScrollPane2.setBounds(10, 230, 990, 240);
+
+        txtCodigo1.setEditable(false);
+        txtCodigo1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtCodigo1.setText("Codigo:");
+        pnlAlterar.add(txtCodigo1);
+        txtCodigo1.setBounds(230, 70, 64, 30);
+
+        txtNome.setText("Nome:");
+        pnlAlterar.add(txtNome);
+        txtNome.setBounds(230, 110, 270, 30);
+
+        btnAlterar1.setText("Alterar");
+        btnAlterar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterar1ActionPerformed(evt);
+            }
+        });
+        pnlAlterar.add(btnAlterar1);
+        btnAlterar1.setBounds(100, 180, 110, 40);
+
+        btnDeletar.setText("Deletar");
+        btnDeletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeletarActionPerformed(evt);
+            }
+        });
+        pnlAlterar.add(btnDeletar);
+        btnDeletar.setBounds(750, 180, 110, 40);
+
+        ftfValor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        pnlAlterar.add(ftfValor);
+        ftfValor.setBounds(230, 190, 270, 30);
+        pnlAlterar.add(txtCategoria);
+        txtCategoria.setBounds(230, 150, 270, 30);
+
+        jLabel3.setText("VendasBNS | GESTÃO DE PRODUTOS");
+        pnlAlterar.add(jLabel3);
+        jLabel3.setBounds(0, 0, 400, 30);
+
+        txaDescricao.setColumns(20);
+        txaDescricao.setRows(5);
+        jScrollPane3.setViewportView(txaDescricao);
+
+        pnlAlterar.add(jScrollPane3);
+        jScrollPane3.setBounds(510, 110, 234, 110);
+
+        getContentPane().add(pnlAlterar);
+        pnlAlterar.setBounds(0, 0, 1000, 480);
+        pnlAlterar.getAccessibleContext().setAccessibleParent(btnAlterar);
+
+        setSize(new java.awt.Dimension(1016, 489));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -213,46 +238,75 @@ public class Estoque extends javax.swing.JFrame {
 
             DefaultTableModel tblProduto = (DefaultTableModel) tblProd.getModel(); //Cria um modelo da tabela
             tblProduto.setNumRows(0);//Limpa as Linhas da tabela
+            tblProd.getColumnModel().getColumn(0).setPreferredWidth(50);
+            tblProd.getColumnModel().getColumn(1).setPreferredWidth(120);
+            tblProd.getColumnModel().getColumn(2).setPreferredWidth(120);
+            tblProd.getColumnModel().getColumn(3).setPreferredWidth(120);
+            tblProd.getColumnModel().getColumn(4).setPreferredWidth(125);
+            tblProd.getColumnModel().getColumn(5).setPreferredWidth(120);
+            tblProd.getColumnModel().getColumn(6).setPreferredWidth(120);
+            tblProd.getColumnModel().getColumn(7).setPreferredWidth(220);
             while (rs.next()) {//Enquanto tiver linhas no (rs) repita
 
                 //Criar uma arrey (dados) que carrega os dados do rs
-                Object[] dados = {rs.getString("codigo"), rs.getString("codigodebarras"), rs.getString("nome"),
-                    rs.getString("categoria"),rs.getString("valor"), rs.getString("dataAt"), rs.getString("hora")};
+                Object[] dados = {rs.getString("codigo"), rs.getString("descricao"), rs.getString("nome"),
+                    rs.getString("categoria"), rs.getString("valor"), rs.getString("dataAt"), rs.getString("hora"), rs.getString("dataAltera")};
                 tblProduto.addRow(dados);//Adiciona os dados da arrey dados a uma row(linha)
+
             }
         } catch (ClassNotFoundException | SQLException ex) {
 
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
+    public void resizeColumnWidth(JTable table) {
+        final TableColumnModel columnModel = table.getColumnModel();
+        for (int column = 0; column < table.getColumnCount(); column++) {
+            int width = 150; // Min width
+            for (int row = 0; row < table.getRowCount(); row++) {
+                TableCellRenderer renderer = table.getCellRenderer(row, column);
+                Component comp = table.prepareRenderer(renderer, row, column);
+                width = Math.max(comp.getPreferredSize().width + 1, width);
+            }
+            if (width > 300) {
+                width = 300;
+            }
+            columnModel.getColumn(column).setPreferredWidth(width);
+        }
+    }
+
     private void txtBuscAvançadaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscAvançadaKeyReleased
-         int teclado =+1;
-        for(int i =0; i< teclado; i++){
+        int teclado = +1;
+        for (int i = 0; i < teclado; i++) {
             String busca = txtBuscAvançada.getText();
             pesquisaTxt(busca);
         }
     }//GEN-LAST:event_txtBuscAvançadaKeyReleased
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        this.cod = codiguin;
-        if(this.cod >= 0){
-            TelaAlterar alt = new TelaAlterar();
-            alt.setVisible(true);
-            this.setVisible(false);
+
+        if (codiguin >= 0) {
+            pnlAlterar.setVisible(true);
+            pnlEstoque.setVisible(false);
+            pnlAlterar.enable(true);
+            carregarTxtBox();
+
+            ftfValor.setText("");
+        } else {
+            JOptionPane.showMessageDialog(null, "Nenhum dado selecionado!");
         }
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void txtBuscAvançadaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBuscAvançadaFocusGained
-        if(txtBuscAvançada.getText().equals("Busca avançada: ")){
+        if (txtBuscAvançada.getText().equals("Busca avançada: ")) {
             txtBuscAvançada.setText("");
         }
-        
-        
+
 
     }//GEN-LAST:event_txtBuscAvançadaFocusGained
 
     private void txtBuscAvançadaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBuscAvançadaFocusLost
-        if(txtBuscAvançada.getText().equals("")){
+        if (txtBuscAvançada.getText().equals("")) {
             txtBuscAvançada.setText("Busca avançada: ");
             txtBuscAvançada.setFont(new Font("Century Ghotic", Font.ITALIC, 12));
         }
@@ -263,20 +317,113 @@ public class Estoque extends javax.swing.JFrame {
         txtCodigo.setText(tblProducts.getValueAt(tblProd.getSelectedRow(), 0).toString());
         Alterar alt = new Alterar();
         codiguin = Integer.parseInt(tblProducts.getValueAt(tblProd.getSelectedRow(), 0).toString());
-        
+
     }//GEN-LAST:event_tblProdMouseClicked
 
-    private void btnBuscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnBuscar1ActionPerformed
-
     private void btnAlterar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterar1ActionPerformed
-        
+        int reply = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja alterar esse produto?", "Confirma", JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION) {
+            String senha = JOptionPane.showInputDialog("Digite a senha de segurança: ");
+            if (senha == null) {
+                txtCodigo1.setText("");
+                txaDescricao.setText("");
+                txtNome.setText("");
+                txtCategoria.setText("");
+                ftfValor.setText("");
+
+            } else if (senha.equals("01101")) {
+                if(!txtCodigo1.getText().equals("")){
+                    alterar();
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "Selecione um produto na tabela para alterar");
+                }
+                
+            } else {
+                JOptionPane.showMessageDialog(null, "Senha incorreta! Tente mais tarde.");
+            }
+        }
+
+
     }//GEN-LAST:event_btnAlterar1ActionPerformed
 
-     private void pesquisaTxt(String busca) {   
-         
-         try {
+    private void tblProd1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProd1MouseClicked
+        carregarTabelaDadosTxt();
+    }//GEN-LAST:event_tblProd1MouseClicked
+
+    private void btnDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarActionPerformed
+
+        // Pega a opção selecionada no JOption
+        int reply = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja excluir esse produto?", "Confirma", JOptionPane.YES_NO_OPTION);
+
+        //Verifica se a opção foi YES
+        if (reply == JOptionPane.YES_OPTION) {
+            // Solicita uma senha no JOption
+            String senha = JOptionPane.showInputDialog("Digite a senha de segurança: ");
+            // Se nenhuma senha foi inserida ou foi cancelado
+            if (senha == null) {
+                txtCodigo1.setText("");
+                txaDescricao.setText("");
+                txtNome.setText("");
+                txtCategoria.setText("");
+                ftfValor.setText("");
+            } else {
+                //Verifica se a senha digitada não corresponde a...
+                if (!senha.equals("01101")) {
+
+                    JOptionPane.showMessageDialog(null, "Senha incorreta! Tente novamente mais tarde. ");
+                } else {
+                    try {
+                        PreparedStatement st;
+                        Connection conn;
+
+                        Class.forName("com.mysql.jdbc.Driver");
+
+                        String url = "jdbc:mysql://localhost:3306/vendasbns";
+                        String user = "root";
+                        String password = "WALL01101FfX7ss";
+
+                        conn = DriverManager.getConnection(url, user, password);
+                        if (!txtCodigo1.getText().equals("")) {
+                            st = conn.prepareStatement("DELETE FROM produtos WHERE codigo = ?");
+                            st.setInt(1, Integer.parseInt(txtCodigo1.getText()));
+                            st.executeUpdate();
+                            conn.close();
+                            DefaultTableModel tblProduto = (DefaultTableModel) tblProd1.getModel(); //Cria um modelo da tabela
+                            tblProduto.setNumRows(0);
+
+                            txtCodigo1.setText("");
+                            txaDescricao.setText("");
+                            txtNome.setText("");
+                            txtCategoria.setText("");
+                            ftfValor.setText("");
+
+                            JOptionPane.showMessageDialog(null, "Produto excluido com sucesso", "Exclusão ", JOptionPane.INFORMATION_MESSAGE);
+                            carregaTabela();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Selecione um Produto na tabela");
+                        }
+
+                    } catch (ClassNotFoundException | SQLException ex) {
+                        JOptionPane.showMessageDialog(null, "Produto excluido com sucesso" + ex, "Error ", JOptionPane.ERROR);
+                    }
+                }
+            }
+
+        } else {
+            txtCodigo1.setText("");
+            txaDescricao.setText("");
+            txtNome.setText("");
+            txtCategoria.setText("");
+            ftfValor.setText("");
+        }
+
+
+    }//GEN-LAST:event_btnDeletarActionPerformed
+
+    private void pesquisaTxt(String busca) {
+
+        try {
             PreparedStatement st;
             Connection con;
             ResultSet rs;
@@ -288,7 +435,7 @@ public class Estoque extends javax.swing.JFrame {
             String password = "WALL01101FfX7ss";
 
             con = DriverManager.getConnection(url, user, password);
-            st = con.prepareStatement("SELECT * FROM produtos WHERE nome LIKE'"+busca+"_%'");
+            st = con.prepareStatement("SELECT * FROM produtos WHERE nome LIKE'" + busca + "_%'");
             rs = st.executeQuery();
 
             DefaultTableModel tblProduto = (DefaultTableModel) tblProd.getModel(); //Cria um modelo da tabela
@@ -296,22 +443,129 @@ public class Estoque extends javax.swing.JFrame {
             while (rs.next()) {//Enquanto tiver linhas no (rs) repita
 
                 //Criar uma arrey (dados) que carrega os dados do rs
-                Object[] dados = {rs.getString("codigo"), rs.getString("codigodebarras"), rs.getString("nome"),
-                    rs.getString("categoria"),rs.getString("valor"), rs.getString("dataAt"), rs.getString("hora")};
+                Object[] dados = {rs.getString("codigo"), rs.getString("descricao"), rs.getString("nome"),
+                    rs.getString("categoria"), rs.getString("valor"), rs.getString("dataAt"), rs.getString("hora")};
                 tblProduto.addRow(dados);//Adiciona os dados da arrey dados a uma row(linha)
             }
         } catch (ClassNotFoundException | SQLException ex) {
 
         }
-     }
-    
-    
-    
-    
-/**
- * @param args the command line arguments
- */
-public static void main(String args[]) {
+    }
+
+    //Area do Pane Alterar 
+    private void carregaTabela() {
+        try {
+            PreparedStatement st;
+            Connection con;
+            ResultSet rs;
+
+            Class.forName("com.mysql.jdbc.Driver");
+
+            String url = "jdbc:mysql://localhost:3306/vendasbns";
+            String user = "root";
+            String password = "WALL01101FfX7ss";
+
+            con = DriverManager.getConnection(url, user, password);
+            st = con.prepareStatement("SELECT * FROM produtos");
+            rs = st.executeQuery();
+
+            DefaultTableModel tblProduto = (DefaultTableModel) tblProd1.getModel(); //Cria um modelo da tabela
+            tblProduto.setNumRows(0);//Limpa as Linhas da tabela
+            tblProd1.getColumnModel().getColumn(0).setPreferredWidth(50);
+            tblProd1.getColumnModel().getColumn(1).setPreferredWidth(120);
+            tblProd1.getColumnModel().getColumn(2).setPreferredWidth(120);
+            tblProd1.getColumnModel().getColumn(3).setPreferredWidth(120);
+            tblProd1.getColumnModel().getColumn(4).setPreferredWidth(125);
+            tblProd1.getColumnModel().getColumn(5).setPreferredWidth(120);
+            tblProd1.getColumnModel().getColumn(6).setPreferredWidth(120);
+            tblProd1.getColumnModel().getColumn(7).setPreferredWidth(220);
+            while (rs.next()) {//Enquanto tiver linhas no (rs) repita
+
+                //Criar uma arrey (dados) que carrega os dados do rs
+                Object[] dados = {
+                    rs.getString("codigo"),
+                    rs.getString("descricao"),
+                    rs.getString("nome"),
+                    rs.getString("categoria"),
+                    rs.getString("valor"),
+                    rs.getString("dataAt"),
+                    rs.getString("hora"),
+                    rs.getString("dataAltera")};
+                tblProduto.addRow(dados);//Adiciona os dados da arrey dados a uma row(linha)
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+
+        }
+    }
+
+    private void carregarTxtBox() {
+        Alterar alt = new Alterar();
+        // Carrega o codigo da consulta Tela estoque
+        boolean retorno;
+        DAOalterar dao = new DAOalterar();
+
+        retorno = dao.conectar();
+        if (retorno) {
+            alt = dao.consultar(codiguin);
+            if (alt != null) {
+                txtNome.setText(alt.getNome());
+                txaDescricao.setText(alt.getDescricao());
+                txtCategoria.setText(alt.getCategoria());
+                ftfValor.setText(alt.getValor());
+                txtCodigo1.setText(String.valueOf(alt.getCodigo()));
+            } else  {
+                JOptionPane.showMessageDialog(null, "Dados não carregados.");
+            }
+        }
+    }
+
+    private void alterar() {
+        Date dataHoraAtual = new Date();
+        String data = new SimpleDateFormat("dd/MM/yyyy").format(dataHoraAtual);
+        String hora = new SimpleDateFormat("HH:mm:ss").format(dataHoraAtual);
+
+        boolean retorno;
+        DAOalterar dao;
+        Alterar alter;
+
+        alter = new Alterar();
+        dao = new DAOalterar();
+        retorno = dao.conectar();
+        alter.setCodigo(Integer.parseInt(txtCodigo.getText()));
+        alter.setNome(txtNome.getText());
+        alter.setDescricao(txaDescricao.getText());
+        alter.setCategoria(txtCategoria.getText().toString());
+        alter.setValor("R$ " + ftfValor.getText());
+        alter.setDatadaAlteração("Data: " + data + " Hora: " + hora);
+        retorno = dao.conectar();
+        if (retorno == true) {
+            int r = dao.alterar(alter);
+            if (r == 1) {
+                JOptionPane.showMessageDialog(null, "Atualização ralizada com sucesso!");
+                carregaTabela();
+
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Erro de conexão!! Contate o Administrador do programa. ");
+        }
+    }
+
+    private void carregarTabelaDadosTxt() {
+
+        DefaultTableModel tblProducts1 = (DefaultTableModel) tblProd1.getModel();
+
+        txtCodigo1.setText(tblProducts1.getValueAt(tblProd1.getSelectedRow(), 0).toString());
+        txtNome.setText(tblProducts1.getValueAt(tblProd1.getSelectedRow(), 1).toString());
+        txaDescricao.setText(tblProducts1.getValueAt(tblProd1.getSelectedRow(), 2).toString());
+        txtCategoria.setText(tblProducts1.getValueAt(tblProd1.getSelectedRow(), 3).toString());
+        ftfValor.setText(tblProducts1.getValueAt(tblProd1.getSelectedRow(), 4).toString());
+    }
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -323,27 +577,23 @@ public static void main(String args[]) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
 
-}
+                }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Estoque.class  
+            java.util.logging.Logger.getLogger(Estoque.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Estoque.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
-} catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Estoque.class  
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Estoque.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-} catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Estoque.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Estoque.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Estoque.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -359,35 +609,27 @@ public static void main(String args[]) {
     private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnAlterar1;
     private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton btnBuscar1;
     private javax.swing.JButton btnDeletar;
-    private javax.swing.JComboBox<String> cbxCategoria;
     private javax.swing.JFormattedTextField ftfValor;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JPanel pnlAlterar;
+    private javax.swing.JPanel pnlEstoque;
     private javax.swing.JTable tblProd;
     private javax.swing.JTable tblProd1;
+    private javax.swing.JTextArea txaDescricao;
     private javax.swing.JTextField txtBuscAvançada;
+    private javax.swing.JTextField txtCategoria;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtCodigo1;
-    private javax.swing.JTextField txtCodigodeBarras;
     private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables
 
     /**
      * @return the cod
      */
-    public int getCod() {
-        return cod;
-    }
-
-    /**
-     * @param cod the cod to set
-     */
-    public void setCod(int cod) {
-        this.cod = cod;
-    }
 }

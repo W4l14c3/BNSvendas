@@ -13,7 +13,7 @@ public class Alterar {
     
     private int codigo;
     private String nome;
-    private String CodigodeBarras;
+    private String descricao;
     private String categoria;
     private String img;
     private String data;
@@ -37,13 +37,6 @@ public class Alterar {
         this.nome = nome;
     }
 
-    public String getCodigodeBarras() {
-        return CodigodeBarras;
-    }
-
-    public void setCodigodeBarras(String CodigodeBarras) {
-        this.CodigodeBarras = CodigodeBarras;
-    }
 
     public String getCategoria() {
         return categoria;
@@ -91,6 +84,14 @@ public class Alterar {
 
     public void setDatadaAlteração(String datadaAlteração) {
         this.datadaAlteração = datadaAlteração;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
    

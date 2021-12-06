@@ -43,13 +43,16 @@ public class CadastroProdutos extends javax.swing.JFrame {
         btnSalvar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txtCodigodeBarras = new javax.swing.JTextField();
         ftfValor = new javax.swing.JFormattedTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txaDescricao = new javax.swing.JTextArea();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
 
-        txtCodigo.setEditable(false);
+        txtCodigo.setText("Codigo auto gerado");
+        txtCodigo.setEnabled(false);
         getContentPane().add(txtCodigo);
         txtCodigo.setBounds(20, 130, 240, 40);
 
@@ -62,13 +65,13 @@ public class CadastroProdutos extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtNome);
-        txtNome.setBounds(270, 180, 420, 40);
+        txtNome.setBounds(20, 180, 240, 40);
         txtNome.setText("Nome:");
         txtNome.setFont(new Font("Century Ghotic", Font.ITALIC, 12));
 
         cbxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MemoriaRAM", "HD", "SSD", "SSD 2.0 NVME", "Monitor", "Gabinete", "Placa mãe", "Placa de Video", "Processador", "Mouse", "Teclado", " " }));
         getContentPane().add(cbxCategoria);
-        cbxCategoria.setBounds(20, 230, 330, 30);
+        cbxCategoria.setBounds(20, 280, 330, 30);
 
         btnSalvar.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
         btnSalvar.setText("Salvar");
@@ -78,7 +81,7 @@ public class CadastroProdutos extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnSalvar);
-        btnSalvar.setBounds(20, 300, 330, 40);
+        btnSalvar.setBounds(20, 350, 330, 40);
 
         jLabel1.setText("VendasBNS | GESTÃO DE PRODUTOS");
         getContentPane().add(jLabel1);
@@ -89,22 +92,37 @@ public class CadastroProdutos extends javax.swing.JFrame {
         getContentPane().add(jLabel2);
         jLabel2.setBounds(10, 50, 410, 60);
 
-        txtCodigodeBarras.addFocusListener(new java.awt.event.FocusAdapter() {
+        ftfValor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.###"))));
+        ftfValor.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                txtCodigodeBarrasFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtCodigodeBarrasFocusLost(evt);
+                ftfValorFocusGained(evt);
             }
         });
-        getContentPane().add(txtCodigodeBarras);
-        txtCodigodeBarras.setBounds(270, 130, 420, 40);
-        txtCodigodeBarras.setText("Codigo de Barras:");
-        txtCodigodeBarras.setFont(new Font("Century Ghotic", Font.ITALIC, 12));
-
-        ftfValor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.###"))));
         getContentPane().add(ftfValor);
-        ftfValor.setBounds(20, 180, 240, 40);
+        ftfValor.setBounds(50, 230, 210, 40);
+        ftfValor.setText("Valor: ");
+
+        txaDescricao.setColumns(20);
+        txaDescricao.setRows(5);
+        txaDescricao.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txaDescricaoFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txaDescricaoFocusLost(evt);
+            }
+        });
+        jScrollPane1.setViewportView(txaDescricao);
+        txaDescricao.setText("Descrição...");
+        txaDescricao.setFont(new Font("Century Ghotic", Font.ITALIC, 12));
+
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(270, 130, 330, 140);
+
+        jLabel3.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        jLabel3.setText("R$");
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(7, 230, 40, 40);
 
         setSize(new java.awt.Dimension(761, 490));
         setLocationRelativeTo(null);
@@ -126,27 +144,20 @@ public class CadastroProdutos extends javax.swing.JFrame {
         } else if (txtNome.getText().equals("Nome:")) {
             JOptionPane.showMessageDialog(null, "Campo Nome vazio!");
             txtNome.requestFocus();
-        } else if (txtCodigodeBarras.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "O Campo Codigo de barras vazio!");
-            txtCodigodeBarras.requestFocus();
-        } else if (txtCodigodeBarras.getText().equals("Codigo de Barras:")) {
-            JOptionPane.showMessageDialog(null, "O Campo Codigo de barras vazio! Insira um valor valido.");
-            txtCodigodeBarras.requestFocus();
-        } else if (ftfValor.getText().equals("")) {
+        } else if (txaDescricao.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "O Campo descrição esta vazio.");
+            txaDescricao.requestFocus();
+        }
+        else if (ftfValor.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "O Campo valor deve ser preenchido");
         } else {
-            try {
-                Integer.parseInt(txtCodigodeBarras.getText());
-
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "O campo Codigo de Barras so aceita numeros\n " + e);
-                txtCodigodeBarras.requestFocus();
-            }
+            
+            
 
             prod = new CadProd();
             prod.setCodigo(txtCodigo.getText());
             prod.setNome(txtNome.getText());
-            prod.setCodigodeBarras(txtCodigodeBarras.getText());
+            prod.setDescricao(txaDescricao.getText());
             prod.setCategoria(cbxCategoria.getSelectedItem().toString());
             prod.setValor("R$ " + ftfValor.getText());
             prod.setData(data);
@@ -166,21 +177,6 @@ public class CadastroProdutos extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
-    // Auto complete para menssagems no campo
-    private void txtCodigodeBarrasFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCodigodeBarrasFocusGained
-        if (txtCodigodeBarras.getText().equals("Codigo de Barras:")) {
-            txtCodigodeBarras.setText("");
-        }
-    }//GEN-LAST:event_txtCodigodeBarrasFocusGained
-
-    private void txtCodigodeBarrasFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCodigodeBarrasFocusLost
-        if (txtCodigodeBarras.getText().equals("")) {
-            txtCodigodeBarras.setText("Codigo de Barras:");
-            txtCodigodeBarras.setFont(new Font("Century Ghotic", Font.ITALIC, 12));
-
-        }
-    }//GEN-LAST:event_txtCodigodeBarrasFocusLost
-
     private void txtNomeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNomeFocusGained
         if (txtNome.getText().equals("Nome:")) {
             txtNome.setText("");}    }//GEN-LAST:event_txtNomeFocusGained
@@ -191,6 +187,24 @@ public class CadastroProdutos extends javax.swing.JFrame {
             txtNome.setFont(new Font("Century Ghotic", Font.ITALIC, 12));
         }
     }//GEN-LAST:event_txtNomeFocusLost
+
+    private void ftfValorFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ftfValorFocusGained
+        if (ftfValor.getText().equals("Valor: ")) {
+            ftfValor.setText("");}
+    }//GEN-LAST:event_ftfValorFocusGained
+
+    private void txaDescricaoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txaDescricaoFocusGained
+        if (txaDescricao.getText().equals("Descrição...")) {
+            txaDescricao.setText("");}
+    }//GEN-LAST:event_txaDescricaoFocusGained
+
+    private void txaDescricaoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txaDescricaoFocusLost
+         if (txaDescricao.getText().equals("")) {
+            txaDescricao.setText("Descrição...");
+            txaDescricao.setFont(new Font("Century Ghotic", Font.ITALIC, 12));
+        }
+        txaDescricao.setFont(new Font("Century Ghotic", Font.ITALIC, 12));
+    }//GEN-LAST:event_txaDescricaoFocusLost
   // Auto complete para menssagems no campo
     
     
@@ -250,8 +264,10 @@ public class CadastroProdutos extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField ftfValor;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea txaDescricao;
     private javax.swing.JTextField txtCodigo;
-    private javax.swing.JTextField txtCodigodeBarras;
     private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables
 }

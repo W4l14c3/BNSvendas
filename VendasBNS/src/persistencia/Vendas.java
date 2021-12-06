@@ -1,12 +1,16 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package persistencia;
 
 /**
  *
  * @author Wallace
  */
-public class CadProd {
-    private String codigo;
+public class Vendas {
+    private int codigo;
     private String nome;
     private String descricao;
     private String categoria;
@@ -14,15 +18,29 @@ public class CadProd {
     private String data;
     private String hora;
     private String valor;
-    
-    
 
-    public String getCodigo() {
+    public int getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(String codigo) {
+    public void setCodigo(int codigo) {
         this.codigo = codigo;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public String getCategoria() {
@@ -33,21 +51,12 @@ public class CadProd {
         this.categoria = categoria;
     }
 
-
     public String getImg() {
         return img;
     }
 
     public void setImg(String img) {
         this.img = img;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 
     public String getData() {
@@ -73,14 +82,8 @@ public class CadProd {
     public void setValor(String valor) {
         this.valor = valor;
     }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
+    
+    
     
     
 }

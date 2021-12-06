@@ -5,15 +5,36 @@
  */
 package Telas;
 
+import java.awt.Font;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+import persistencia.DAOVendas;
+import persistencia.Vendas;
+
 /**
  *
  * @author Wallace
  */
 public class VendasBNS extends javax.swing.JFrame {
 
+    DefaultListModel model = new DefaultListModel();
+    int soma = 0;
+    String valor;
+    String codigo;
+    int cont1;
 
     public VendasBNS() {
         initComponents();
+        model.clear();
+        lstListaCompra.setModel(model);
+        btnAdd1.setEnabled(false);
     }
 
     /**
@@ -25,43 +46,76 @@ public class VendasBNS extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        txtCodigo = new javax.swing.JTextField();
+        txtNome = new javax.swing.JTextField();
+        btnRemover = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
-        jButton2 = new javax.swing.JButton();
+        lstListaCompra = new javax.swing.JList<>();
+        btnBuscar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        btnBuy = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txaDescrição = new javax.swing.JTextArea();
+        btnAdd1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
 
-        jTextField1.setText("jTextField1");
-        getContentPane().add(jTextField1);
-        jTextField1.setBounds(20, 210, 130, 40);
+        txtCodigo.setText("Codigo:");
+        txtCodigo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtCodigoFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCodigoFocusLost(evt);
+            }
+        });
+        getContentPane().add(txtCodigo);
+        txtCodigo.setBounds(20, 210, 130, 40);
+        txtCodigo.setText("Codigo: ");
+        txtCodigo.setFont(new Font("Century Ghotic", Font.ITALIC, 12));
 
-        jTextField2.setText("jTextField2");
-        getContentPane().add(jTextField2);
-        jTextField2.setBounds(160, 210, 270, 40);
+        txtNome.setText("Nome: ");
+        txtNome.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtNomeFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNomeFocusLost(evt);
+            }
+        });
+        getContentPane().add(txtNome);
+        txtNome.setBounds(160, 210, 270, 40);
+        txtNome.setFont(new Font("Century Ghotic", Font.ITALIC, 12));
 
-        jButton1.setText("jButton1");
-        getContentPane().add(jButton1);
-        jButton1.setBounds(260, 360, 140, 30);
+        btnRemover.setText("<< Remover");
+        btnRemover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoverActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnRemover);
+        btnRemover.setBounds(220, 360, 100, 30);
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        lstListaCompra.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(lstListaCompra);
 
         getContentPane().add(jScrollPane1);
         jScrollPane1.setBounds(480, 10, 260, 430);
 
-        jButton2.setText("jButton1");
-        getContentPane().add(jButton2);
-        jButton2.setBounds(20, 360, 140, 30);
+        btnBuscar.setText("Buscar ");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnBuscar);
+        btnBuscar.setBounds(20, 360, 140, 30);
 
         jLabel2.setFont(new java.awt.Font("Century Gothic", 0, 36)); // NOI18N
         jLabel2.setText("Tela de Compra Simulada");
@@ -72,8 +126,187 @@ public class VendasBNS extends javax.swing.JFrame {
         getContentPane().add(jLabel1);
         jLabel1.setBounds(10, 10, 400, 30);
 
-        pack();
+        btnBuy.setText("Comprar");
+        btnBuy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuyActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnBuy);
+        btnBuy.setBounds(480, 470, 260, 40);
+
+        txaDescrição.setColumns(20);
+        txaDescrição.setRows(5);
+        txaDescrição.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txaDescriçãoFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txaDescriçãoFocusLost(evt);
+            }
+        });
+        jScrollPane2.setViewportView(txaDescrição);
+        txaDescrição.setText("Descrição: ");
+        txaDescrição.setFont(new Font("Century Ghotic", Font.ITALIC, 12));
+
+        getContentPane().add(jScrollPane2);
+        jScrollPane2.setBounds(20, 260, 410, 86);
+
+        btnAdd1.setText("Adcionar >>");
+        btnAdd1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdd1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnAdd1);
+        btnAdd1.setBounds(330, 360, 100, 30);
+
+        setSize(new java.awt.Dimension(825, 589));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+
+        Vendas vds = new Vendas();
+        DAOVendas dao = new DAOVendas();
+        boolean status;
+        txtNome.setText("");
+        txaDescrição.setText("");
+        status = dao.conectar();
+        try {
+            int codigo = Integer.parseInt(txtCodigo.getText());
+            if (status) {
+                vds = dao.consultar(codigo);
+                if (vds != null) {
+                    txtNome.setText(vds.getNome());
+                    txaDescrição.setText(vds.getDescricao());
+                    valor = vds.getValor();
+                    btnAdd1.setEnabled(true);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Codigo não encontrado!");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Erro de conexão");
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possivel converter, digite apenas numeros no campo codigo!");
+            txtCodigo.requestFocus();
+            txtCodigo.setText("");
+        }
+
+//            txtCodigo.setText(rs.getString("codigo"));
+//            txtNome.setText(rs.getString("nome"));
+//            txaDescrição.setText(rs.getString("descricao"));    
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void txtCodigoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCodigoFocusGained
+        if (txtCodigo.getText().equals("Codigo: ")) {
+            txtCodigo.setText("");
+            txtCodigo.setFont(new Font("Century Ghotic", Font.ITALIC, 12));
+        }
+    }//GEN-LAST:event_txtCodigoFocusGained
+
+    private void txtCodigoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCodigoFocusLost
+        if (txtCodigo.getText().equals("")) {
+            txtCodigo.setText("Codigo: ");
+            txtCodigo.setFont(new Font("Century Ghotic", Font.ITALIC, 12));
+        }
+    }//GEN-LAST:event_txtCodigoFocusLost
+
+    private void txtNomeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNomeFocusGained
+        if (txtNome.getText().equals("Nome: ")) {
+            txtNome.setText("");
+            txtNome.setFont(new Font("Century Ghotic", Font.ITALIC, 12));
+        }
+    }//GEN-LAST:event_txtNomeFocusGained
+
+    private void txtNomeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNomeFocusLost
+        if (txtNome.getText().equals("")) {
+            txtNome.setText("Nome: ");
+            txtNome.setFont(new Font("Century Ghotic", Font.ITALIC, 12));
+        }
+    }//GEN-LAST:event_txtNomeFocusLost
+
+    private void txaDescriçãoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txaDescriçãoFocusGained
+        if (txaDescrição.getText().equals("Descrição: ")) {
+            txaDescrição.setText("");
+            txaDescrição.setFont(new Font("Century Ghotic", Font.ITALIC, 12));
+        }
+    }//GEN-LAST:event_txaDescriçãoFocusGained
+
+    private void txaDescriçãoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txaDescriçãoFocusLost
+        if (txaDescrição.getText().equals("")) {
+            txaDescrição.setText("Descrição: ");
+            txaDescrição.setFont(new Font("Century Ghotic", Font.ITALIC, 12));
+        }
+    }//GEN-LAST:event_txaDescriçãoFocusLost
+
+    private void btnAdd1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdd1ActionPerformed
+        String valor1 = valor;
+        String codig1;
+        valor1 = valor1.replace("R$ ", "");
+        valor1 = valor1.replace(".", "");
+
+        codig1 = txtCodigo.getText();
+
+        if (!codig1.equals(codigo)) {
+            int somaCalc = Integer.parseInt(valor1);
+            soma = soma + somaCalc;
+            model.addElement("Codigo:  " + codig1 + "  Nome:  " + txtNome.getText() + "  Valor: R$ " + valor1);
+            lstListaCompra.setModel(model);
+
+            btnBuy.setText("Comprar R$  " + soma);
+            codigo = codig1;
+        } else {
+            JOptionPane.showMessageDialog(null, "Produto ja adcionado");
+            btnAdd1.setEnabled(false);
+        }
+
+    }//GEN-LAST:event_btnAdd1ActionPerformed
+
+    private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
+        model.clear();
+        lstListaCompra.setModel(model);
+        soma = 0;
+        btnBuy.setText("Comprar");
+    }//GEN-LAST:event_btnRemoverActionPerformed
+
+    private void btnBuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuyActionPerformed
+        int cont = 0;
+        cont1 = model.getSize();
+
+        while (cont1 > cont) {
+            try {
+                String cod = (model.getElementAt(cont).toString());
+                char cod1 = cod.charAt(9);
+                char cod2 = cod.charAt(10);
+
+                String charr1 = String.valueOf(cod1);
+                String charr2 = String.valueOf(cod2);
+                String codFound = charr1 + charr2;
+
+                PreparedStatement st;
+                Connection conn;
+
+                Class.forName("com.mysql.jdbc.Driver");
+
+                String url = "jdbc:mysql://localhost:3306/vendasbns";
+                String user = "root";
+                String password = "WALL01101FfX7ss";
+                conn = DriverManager.getConnection(url, user, password);
+
+                st = conn.prepareStatement("DELETE FROM produtos WHERE codigo = "+codFound+"");
+                st.executeUpdate();
+                conn.close();
+                cont ++;
+                JOptionPane.showMessageDialog(null, "Compra realizada com sucesso!");
+            } catch (ClassNotFoundException | SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Produto não encontrado!");
+            }
+        }
+
+
+    }//GEN-LAST:event_btnBuyActionPerformed
 
     /**
      * @param args the command line arguments
@@ -111,13 +344,17 @@ public class VendasBNS extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnAdd1;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnBuy;
+    private javax.swing.JButton btnRemover;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JList<String> lstListaCompra;
+    private javax.swing.JTextArea txaDescrição;
+    private javax.swing.JTextField txtCodigo;
+    private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables
 }

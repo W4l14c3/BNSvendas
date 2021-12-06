@@ -10,15 +10,14 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author Wallace
  */
-public class DAOalterar {
+public class DAOVendas {
+
      String url = "jdbc:mysql://localhost:3306/vendasbns";
     String user = "root";
     String password = "WALL01101FfX7ss";
@@ -41,52 +40,29 @@ public class DAOalterar {
             return false;//se não houver conexão retorna falso
         }
     }
-    
-    public int alterar(Alterar telaAlter){
-        try {
-            pt = conn.prepareStatement("UPDATE produtos SET nome = ?, descricao = ?, categoria = ?, valor = ?, dataAltera = ?  WHERE codigo = ?");// INSERÇÃO DE DADOS USANDO (?) PARAMETROS
-            // Abaixo estão as variaveis da classe CadFunc que serão inseridas no lugar parametros(?)
-            pt.setString(1, telaAlter.getNome());
-            pt.setString(2, telaAlter.getDescricao());
-            pt.setString(3, telaAlter.getCategoria());
-            pt.setString(4, telaAlter.getValor());
-            pt.setString(5, telaAlter.getDatadaAlteração());
-            pt.setInt(6, telaAlter.getCodigo());
-            pt.execute();// Para executar a Query (Inserção de dados)
-            conn.close();//Fecha conexão
-            return 1;// retorna 1 se o cadastro foi realizado
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex);
-            if(ex.getErrorCode() == 1062){// captura o ero de duplicidade de chave primaria
-                return 1062;
-            }
-            else{return 0;}// retorna 0 se não foi possivel cadastrar
-        }
 
-    }
-    
-     public Alterar consultar(int cod){
+    public Vendas consultar(int cod) {
         try {
             pt = conn.prepareStatement("SELECT * FROM produtos WHERE codigo = ?");
             pt.setInt(1, cod);
             rs = pt.executeQuery();
-            
-            if(rs.next()){
-                Alterar alterar = new Alterar();
-                alterar.setCodigo(rs.getInt("codigo"));
-                alterar.setNome(rs.getString("nome"));
-                alterar.setDescricao(rs.getString("descricao"));
-                alterar.setCategoria(rs.getString("categoria"));
-                alterar.setValor(rs.getString("valor"));
-                
-                return alterar;
-            }else{
+
+            if (rs.next()) {
+                Vendas vendas = new Vendas();
+                vendas.setCodigo(rs.getInt("codigo"));
+                vendas.setNome(rs.getString("nome"));
+                vendas.setDescricao(rs.getString("descricao"));
+                vendas.setCategoria(rs.getString("categoria"));
+                vendas.setValor(rs.getString("valor"));
+
+                return vendas;
+            } else {
                 return null;
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "ERROR " + ex);
             return null;
         }
-     }
-     
+    }
+
 }
